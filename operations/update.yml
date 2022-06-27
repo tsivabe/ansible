@@ -1,0 +1,15 @@
+---
+- name: Update and reboot
+  hosts: rhel_hosts
+  gather_facts: no
+  tasks:
+    - name: Upgrade all packages
+      yum:
+        name: '*'
+        state: latest
+      
+    - name: Reboot servers
+      reboot:
+        pre_reboot_delay: 80
+        msg: "Server will rebooted in 90 seconds!!!"
+...

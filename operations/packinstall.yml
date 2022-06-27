@@ -1,0 +1,9 @@
+- hosts: onprem 
+  user: ansible
+  become: True
+  tasks:
+    - name: Install sysstat package
+      yum:
+        name: sysstat
+        state: present
+        update_cache: True

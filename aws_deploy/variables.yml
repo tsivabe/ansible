@@ -1,0 +1,11 @@
+STATE_RES_NAME: "${STATE_RES_NAME}"
+ec2_region: "${us-east-1}"
+ec2_instance_type: "${t2.micro}"
+ec2_image: "${ami-098f16afa9edf40be}"
+ec2_keypair: "${sivaII_keypair1}"
+ec2_volume_size: ${10G}
+ec2_count: ${1}
+ec2_security_group_id: "${sg-a9859396}"
+ec2_subnet_id: "${subnet-0646f227}"
+ec2_tag_Type: "${Name}"
+ec2_tag_Role: "${testmachine1}"

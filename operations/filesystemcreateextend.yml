@@ -1,0 +1,48 @@
+---
+- name: playbook for simple 1 GB partition
+  hosts: localhost
+  become: true
+  tasks:
+    - name: create partition
+      parted:
+        device: /dev/nvme1n1
+        number: 1
+        flags: [ lvm ]
+        state: present
+        part_end: 2GB
+
+    - name: Install lvm2 dependency
+      package:
+        name: lvm2
+        state: present
+
+    - name: task for creating volume group
+      lvg:
+          vg: sample-vg
+          pvs: /dev/nvme1n1p1
+          pesize: 16
+
+    - name: task for creating logical volume
+      lvol:
+          vg: sample-vg
+          lv:  sample-lv
+          size: 1g
+          force: yes
+
+    - name: Create directory data1 if does not exist
+      file:
+        path: /data1
+        state: directory
+        mode: '0755'
+
+    - name: format the xfs filesystem
+      filesystem:
+        fstype: xfs
+        dev: /dev/sample-vg/sample-lv
+
+    - name: mount the lv on /data1
+      mount:
+        path: /data1
+        src: /dev/sample-vg/sample-lv
+        fstype: xfs
+        state: mounted

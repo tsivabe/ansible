@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars_files:
+        - cred.yml
+  tasks:
+    - name: Creating  EC2 Role Specs
+      include_role:
+        name: ec2
+
+- hosts: ec2_master
+  gather_facts: no
+  remote_user: ec2-user
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+    - name: Creating Kubernetes Master Role Specs
+      include_role:
+        name: k8s_master
+
+- hosts: ec2_slave
+  gather_facts: no
+  remote_user: ec2-user
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+    - name: Creating Kubernetes Slave Role Specs
+      include_role:
+        name: k8s_slave

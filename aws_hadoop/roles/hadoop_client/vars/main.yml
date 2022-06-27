@@ -1,0 +1,5 @@
+---
+# variables for hadoop_client
+pkgs_name:
+ - "java.rpm"
+ - "hadoop.rpm"

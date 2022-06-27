@@ -1,0 +1,6 @@
+instance_name: webserver
+machine_type: e2-micro
+zone: us-central1-a
+source_image: projects/centos-cloud/global/images/family/centos-7
+service_account_file: /var/lib/awx/projects/gcp_compute/my-msc-2021-15d636daf288.json
+project_id: my-msc-2021

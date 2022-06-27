@@ -1,0 +1,39 @@
+- hosts: localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  vars_files:
+    - cred.yml
+  tasks:
+    - name: Running EC2 Role
+      include_role:
+        name: ec2
+
+- hosts: namenode
+  remote_user: ec2-user
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+    - name: Running Hadoop Master Role
+      include_role:
+        name: hadoop_master
+
+- hosts: datanode
+  remote_user: ec2-user
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+    - name: Running Hadoop Slave Role
+      include_role:
+        name: hadoop_slave
+
+- hosts: clientnode
+  remote_user: ec2-user
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+    - name: Running Hadoop Client Role
+      include_role:
+        name: hadoop_client

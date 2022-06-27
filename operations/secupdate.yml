@@ -1,0 +1,11 @@
+---
+- name: Install Security Updates
+  hosts: host_group
+  gather_facts: no
+  tasks:
+    - name: Upgrade all packages
+      yum:
+        name: '*'
+        state: latest
+        security: yes
+...
